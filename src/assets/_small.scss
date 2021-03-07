@@ -1,0 +1,70 @@
+header{
+    width: 100%;
+    background-color: orange;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas: 
+    "logo logo logo logo logo logo logo logo logo logo logo login"
+    "nav1 nav1 nav1 nav1 nav1 nav1 nav1 nav1 nav1 nav1 nav1 login"
+    ;
+    nav{
+        grid-area: nav1;
+        ul{
+            list-style-type: none;
+            padding: 0rem;
+            li{
+                float: left;
+                margin: 0rem .5rem;
+            }
+        }
+    }
+    .logo{
+        grid-area: logo;
+        font-size: 1.2rem;
+        font-weight: 1000;
+        margin: 0rem .5rem;
+    }
+    .login{
+        grid-area: login;
+        display: grid;
+        justify-content: center;
+        align-content: center;
+    }
+}
+
+footer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    .f-more{
+        margin: 0rem .5rem;
+        border-bottom: 2px solid orange;
+    }
+    .foot-nav{
+        display: grid;
+        justify-content: center;
+        margin: 0rem .5rem;
+        ul{
+            list-style-type: none;
+            padding: 0rem;
+            font-size: .8rem;
+            li{
+                float: left;
+                margin: 0rem .325rem;
+            }
+        }
+        div{
+            display: grid;
+            justify-self: center;
+        }
+    }
+    .f-search{
+        justify-content: center;
+        text-align: center;
+        color: #555555;
+    }
+}
+
+main{
+    margin: .5rem;
+}
