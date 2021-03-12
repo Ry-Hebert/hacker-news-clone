@@ -11,17 +11,29 @@ const getTopArt = () =>{
         }).then( value => {
             resolve(value.json())
         })
-    }).then( value => topStoriesID = value)
+    })
     .then(valArray =>{
-        Promise.all(valArray).then( pleaseWork =>{
-            let fetchedData = pleaseWork.map(x =>{
-                // console.log(x)
-                fetchHNArt(x)
-            })
-            Promise.all(fetchedData).then( x =>{
-                console.log(x)
-            })
-        })
+
+        let topThirty = valArray.slice(0, 30)
+        // let fetchedData = topThirty.map(x =>{
+        //     fetchHNArt(x)
+        // })
+        let fetchedData = Promise.all(topThirty).then(x=>{fetchHNArt(x)})
+
+        console.log(fetchedData)
+        // Promise.all(fetchedData).then( (articleData) =>{
+        //     console.log(articleData)
+        // })
+
+        // Promise.all(valArray).then( pleaseWork =>{
+        //     let fetchedData = pleaseWork.map(x =>{
+        //         // console.log(x)
+        //         fetchHNArt(x)
+        //     })
+        //     Promise.all(fetchedData).then( x =>{
+        //         console.log(x)
+        //     })
+        // })
 
     })
 
@@ -31,9 +43,13 @@ const getTopArt = () =>{
 window.onload = getTopArt()
 
 const fetchHNArt = (idNum) =>{
-    fetch(`${connect}item/${idNum}.json?print=pretty`, {
-        method: 'GET'
-    }).then( value => {
-        return value.json()
+    console.log(idNum)
+    let fHNArtPromise = new Promise((resolve, reject) =>{
+        fetch(`${connect}item/${idNum}.json?print=pretty`, {
+            method: 'GET'
+        }).then( value => {
+            resolve(value.json())
+            // console.log(value.json())
+        })
     })
 }
