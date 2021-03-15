@@ -12,32 +12,58 @@ const getTopArt = () =>{
             resolve(value.json())
         })
     })
-    .then(valArray =>{
+    // .then(valArray =>{
 
-        let topThirty = valArray.slice(0, 30)
-        // let fetchedData = topThirty.map(x =>{
-        //     fetchHNArt(x)
-        // })
-        let fetchedData = Promise.all(topThirty).then(x=>{fetchHNArt(x)})
+    //      valArray.slice(0, 30)
 
-        console.log(fetchedData)
-        // Promise.all(fetchedData).then( (articleData) =>{
-        //     console.log(articleData)
-        // })
+    //     // let topThirty = valArray.slice(0, 30)
+    //     // let fetchedData = topThirty.map(x =>{
+    //     //     fetchHNArt(x)
+    //     // })
+        
+    //     // let fetchedData = Promise.all(topThirty).then(x=>{
+    //     //     let fRes = fetchHNArt(x)
+    //     //     console.log(fRes)
+    //     // })
 
-        // Promise.all(valArray).then( pleaseWork =>{
-        //     let fetchedData = pleaseWork.map(x =>{
-        //         // console.log(x)
-        //         fetchHNArt(x)
-        //     })
-        //     Promise.all(fetchedData).then( x =>{
-        //         console.log(x)
-        //     })
-        // })
+    //     // console.log(fetchedData)
 
+    //     // Promise.all(fetchedData).then( (articleData) =>{
+    //     //     console.log(articleData)
+    //     // })
+
+    //     // Promise.all(valArray).then( pleaseWork =>{
+    //     //     let fetchedData = pleaseWork.map(x =>{
+    //     //         // console.log(x)
+    //     //         fetchHNArt(x)
+    //     //     })
+    //     //     Promise.all(fetchedData).then( x =>{
+    //     //         console.log(x)
+    //     //     })
+    //     // })
+
+    // })
+
+    let topThirtyStories = Promise.all([getArtID]).then( values =>{
+        console.log(values[0])
+        let topThirty = values[0].slice(0, 30)
+        console.log(topThirty)
+        return topThirty
     })
 
-    
+    Promise.all([topThirtyStories]).then( values =>{
+        // let tryThisContent = values[0].map(x =>{fetchHNArt(x)})
+
+        let tryThisContent = new Promise((resolve, reject) =>{
+            // console.log(values[0].map(x =>{return fetchHNArt(x)}))
+            let workWork = values[0].map(x =>{return fetchHNArt(x)})
+            console.log(workWork)
+        })
+
+        Promise.all([tryThisContent]).then( y =>{
+            console.log(y[0])
+        })
+    })
 }
 
 window.onload = getTopArt()
@@ -48,7 +74,18 @@ const fetchHNArt = (idNum) =>{
         fetch(`${connect}item/${idNum}.json?print=pretty`, {
             method: 'GET'
         }).then( value => {
-            resolve(value.json())
+            let resolvedValue = value.json()
+            
+            return(Promise.all([resolvedValue]).then( funcPromiseReturn =>{
+                console.log(funcPromiseReturn[0])
+            }))
+
+            // resolve(Promise.all([resolvedValue]).then( funcPromiseReturn =>{
+            //     console.log(funcPromiseReturn[0])
+            // }))
+
+            // resolve(resolvedValue)
+            // resolve(value.json())
             // console.log(value.json())
         })
     })
