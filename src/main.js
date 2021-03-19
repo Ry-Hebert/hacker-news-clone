@@ -76,16 +76,16 @@ window.onload = getTopArt()
 
 const fetchHNArt = (idNum) =>{
     console.log(idNum)
+    let idTrack = 0
     let fHNArtPromise = new Promise((resolve, reject) =>{
         fetch(`${connect}item/${idNum}.json?print=pretty`, {
             method: 'GET'
         }).then( value => {
             let resolvedValue = value.json()
-            
             let returnedValues = Promise.all([resolvedValue]).then( funcPromiseReturn =>{
                 console.log(funcPromiseReturn[0])
-                
-                insertContent.innerHTML += `${funcPromiseReturn[0].title}`
+                idTrack++
+                insertContent.innerHTML += `<div class="rank">${idTrack}</div> <div>${funcPromiseReturn[0].title}</div>`
             })
 
             return returnedValues
