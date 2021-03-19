@@ -2,6 +2,8 @@ const connect = "https://hacker-news.firebaseio.com/v0/"
 
 console.log('Hello Console World!')
 
+let insertContent = document.querySelector('.top-news-items')
+
 const getTopArt = () =>{
     
     let topStoriesID
@@ -57,7 +59,11 @@ const getTopArt = () =>{
         let tryThisContent = new Promise((resolve, reject) =>{
             // console.log(values[0].map(x =>{return fetchHNArt(x)}))
             let workWork = values[0].map(x =>{return fetchHNArt(x)})
-            console.log(workWork)
+            Promise.all([workWork]).then( xy =>{
+                console.log(xy[0])
+            }
+                
+            )
         })
 
         Promise.all([tryThisContent]).then( y =>{
@@ -76,10 +82,13 @@ const fetchHNArt = (idNum) =>{
         }).then( value => {
             let resolvedValue = value.json()
             
-            return(Promise.all([resolvedValue]).then( funcPromiseReturn =>{
+            let returnedValues = Promise.all([resolvedValue]).then( funcPromiseReturn =>{
                 console.log(funcPromiseReturn[0])
-            }))
+                
+                insertContent.innerHTML += `${funcPromiseReturn[0].title}`
+            })
 
+            return returnedValues
             // resolve(Promise.all([resolvedValue]).then( funcPromiseReturn =>{
             //     console.log(funcPromiseReturn[0])
             // }))
