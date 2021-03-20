@@ -68,3 +68,18 @@ footer{
 main{
     margin: .5rem;
 }
+
+.article-item{
+    display: grid;
+    grid-template-columns: 2rem auto;
+}
+
+.art-title-details{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.art-title{
+    font-size: 1.2rem;
+    font-weight: 100;
+}

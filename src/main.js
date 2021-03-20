@@ -2,10 +2,10 @@ const connect = "https://hacker-news.firebaseio.com/v0/"
 
 console.log('Hello Console World!')
 
+let counter = 0
 let insertContent = document.querySelector('.top-news-items')
 
 const getTopArt = () =>{
-    
     let topStoriesID
     let getArtID = new Promise( (resolve, reject) =>{
         fetch(`${connect}topstories.json?print=pretty`, {
@@ -55,9 +55,10 @@ const getTopArt = () =>{
 
     Promise.all([topThirtyStories]).then( values =>{
         // let tryThisContent = values[0].map(x =>{fetchHNArt(x)})
-
+        
         let tryThisContent = new Promise((resolve, reject) =>{
             // console.log(values[0].map(x =>{return fetchHNArt(x)}))
+            let loopCount = 0
             let workWork = values[0].map(x =>{return fetchHNArt(x)})
             Promise.all([workWork]).then( xy =>{
                 console.log(xy[0])
@@ -76,7 +77,6 @@ window.onload = getTopArt()
 
 const fetchHNArt = (idNum) =>{
     console.log(idNum)
-    let idTrack = 0
     let fHNArtPromise = new Promise((resolve, reject) =>{
         fetch(`${connect}item/${idNum}.json?print=pretty`, {
             method: 'GET'
@@ -84,8 +84,8 @@ const fetchHNArt = (idNum) =>{
             let resolvedValue = value.json()
             let returnedValues = Promise.all([resolvedValue]).then( funcPromiseReturn =>{
                 console.log(funcPromiseReturn[0])
-                idTrack++
-                insertContent.innerHTML += `<div class="rank">${idTrack}</div> <div>${funcPromiseReturn[0].title}</div>`
+                countPlus(counter)
+                insertContent.innerHTML += `<div class="article-item"><div class="rank">${counter}. <i class="fas fa-caret-up"></i></div> <div class="art-title-details"><div class="art-title">${funcPromiseReturn[0].title}</div><div class="art-details">${funcPromiseReturn[0].score} Points by ${funcPromiseReturn[0].by} | Hide | Comments: ${funcPromiseReturn[0].kids.length}</div></div></div>`
             })
 
             return returnedValues
@@ -98,4 +98,8 @@ const fetchHNArt = (idNum) =>{
             // console.log(value.json())
         })
     })
+}
+
+const countPlus = (count) =>{
+    return (count = count + 1)
 }

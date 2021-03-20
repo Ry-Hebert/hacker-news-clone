@@ -183,4 +183,23 @@ footer .f-search {
 main {
   margin: .5rem;
 }
+
+.article-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2rem auto;
+      grid-template-columns: 2rem auto;
+}
+
+.art-title-details {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+}
+
+.art-title {
+  font-size: 1.2rem;
+  font-weight: 100;
+}
 /*# sourceMappingURL=styles.css.map */
